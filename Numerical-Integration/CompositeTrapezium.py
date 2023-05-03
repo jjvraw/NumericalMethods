@@ -1,13 +1,12 @@
-import math
-
+import mpmath as mp
+from scipy.integrate import quad
 import numpy as np
 
 
 def composite_trapezium(f, a, b, n):
     """
     Computes the definite integral of f(x) over the interval [a, b] using the Composite Trapezium Rule
-    with n evenly spaced nodes.gu
-x§
+    with n evenly spaced nodes.
     Parameters
     ----------
     f : callable
@@ -17,7 +16,7 @@ x§
     b : float
         The upper bound of the interval.
     n : int
-        The number of subintervals.
+        The number of nodes in [a,b]
 
     Returns
     -------
@@ -25,29 +24,39 @@ x§
         The approximate value of the definite integral.
 
     """
-    h = (b - a) / n
-    x = [a + i*h for i in range(n+1)]
-    y = [f(x_i) for x_i in x]
+    h = (b - a) / (n - 1)
+    x = np.linspace(a, b, n)
+    y = f(x)
 
-    integral = (h/2) * (y[0] + 2*sum(y[1:n]) + y[n])
-    return integral
+    result = y[0] + y[-1]
+    result += 2 * np.sum(y[1:-1])
+
+    return (h / 2) * result
 
 
 if __name__ == "__main__":
-    f = lambda x: math.sqrt(1+x**4) / x**2
+
+    f = lambda x: np.sqrt(1+x**4) / x**2
     a = 1
     b = 2
-    h = 0.01
-    n = len(np.arange(a, b, h))
-    approx_integral = composite_trapezium(f, a, b, n)
-    print(f"h = {h} -> integral = {approx_integral}, abs error: {abs(approx_integral - 1.132090393305915)}")
+    exact_integral = mp.quad(f, [1, 2])
 
-    h = 0.005
-    n = len(np.arange(a, b, h))
+    n = 101
     approx_integral = composite_trapezium(f, a, b, n)
-    print(f"h = {h} -> integral = {approx_integral}, abs error: {abs(approx_integral - 1.132090393305915)}")
+    print(f"n = {n} -> integral = {approx_integral}, abs error: {abs(approx_integral - exact_integral)}")
 
-    h = 0.00025
-    n = len(np.arange(a, b, h))
+    n = 1001
     approx_integral = composite_trapezium(f, a, b, n)
-    print(f"h = {h} -> integral = {approx_integral}, abs error: {abs(approx_integral - 1.132090393305915)}")
+    print(f"n = {n} -> integral = {approx_integral}, abs error: {abs(approx_integral - exact_integral)}")
+
+    n = 5001
+    approx_integral = composite_trapezium(f, a, b, n)
+    print(f"n = {n} -> integral = {approx_integral}, abs error: {abs(approx_integral - exact_integral)}")
+
+    n = 10001
+    approx_integral = composite_trapezium(f, a, b, n)
+    print(f"n = {n} -> integral = {approx_integral}, abs error: {abs(approx_integral - exact_integral)}")
+
+    n = 50001
+    approx_integral = composite_trapezium(f, a, b, n)
+    print(f"n = {n} -> integral = {approx_integral}, abs error: {abs(approx_integral - exact_integral)}")

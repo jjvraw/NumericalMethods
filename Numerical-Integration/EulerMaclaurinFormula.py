@@ -1,15 +1,16 @@
 import numpy as np
 from CompositeTrapezium import composite_trapezium
 import math
-
+import mpmath as mp
 
 if __name__ == "__main__": 
-    f = lambda x: math.sqrt(1+x**4) / x**2
+    
+    f = lambda x: np.sqrt(1+x**4) / x**2
     df = lambda x: -2 / (x**3 * math.sqrt(1 + x**4)) 
     h = 0.01
-    exact = 1.132090393305915
     n = len(np.arange(1, 2, h))
     trap = composite_trapezium(f, 1, 2, n)
+    exact = float(mp.quad(f, [1, 2]))
     err = abs(exact - trap)
     err_estimate = (h**2 / 12) * (df(2) - df(1))
 

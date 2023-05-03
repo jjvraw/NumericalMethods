@@ -1,7 +1,6 @@
 import math
 import numpy as np
-
-import numpy as np
+import mpmath as mp
 
 def romberg_integration(f, a, b, n):
     """
@@ -25,7 +24,6 @@ def romberg_integration(f, a, b, n):
     """
     R = np.zeros((n,n))
     h = b - a
-
     R[0, 0] = (h/2.0) * (f(a) + f(b))
     for j in range(1, n):
         h = h / 2.0
@@ -41,6 +39,8 @@ if __name__ == "__main__":
     a = 1
     b = 2
     n = 4
+    exact = float(mp.quad(f, [a, b]))
     approx_integral, R = romberg_integration(f, a, b, n)
-    print(f"Integral = {approx_integral}, abs error: {abs(approx_integral - 1.132090393305915)}")
-    print(R)
+    print(f"Integral = {approx_integral}, abs error: {abs(approx_integral - exact)}")
+    np.set_printoptions(precision=10)
+    print(np.array(R))

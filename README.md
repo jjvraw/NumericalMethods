@@ -26,4 +26,6 @@
 
 ## Visualisation
 - __The Fixed Point Iteration Visualisation__ provides a dynamic graph that represents the iterative process of finding a fixed point of a continuous function. The graph illustrates the movement of the iterations towards the fixed point. To run the file, libraries including numpy, matplotlib, and scipy are required.
-![Visual of FPI.](media/FPI_Visual.gif)
+<div style="text-align: center;">
+  <img src="media/FPI_Visual.gif" alt="Visual of FPI." width="300">
+</div>

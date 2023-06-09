@@ -24,6 +24,6 @@
 - Secant
     - The Secant Method finds a root of a given function using two initial guesses. The script defines a secant function and applies it to three sample functions, finding their roots and reporting intermediate values or errors.
 
-## Fixed Point Iteration
-    - The Fixed Point Iteration Visualization provides a dynamic graph that represents the iterative process of finding a fixed point of a continuous function. The graph illustrates the movement of the iterations towards the fixed point. To run the file, libraries including numpy, matplotlib, and scipy are required.
-    ![Visual of FPI.](media/FPI_Visual.gif)
+## Visualisation
+- __The Fixed Point Iteration Visualisation__ provides a dynamic graph that represents the iterative process of finding a fixed point of a continuous function. The graph illustrates the movement of the iterations towards the fixed point. To run the file, libraries including numpy, matplotlib, and scipy are required.
+![Visual of FPI.](media/FPI_Visual.gif)
